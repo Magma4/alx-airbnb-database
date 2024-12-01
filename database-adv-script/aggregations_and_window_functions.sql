@@ -13,7 +13,8 @@ INNER JOIN User
 ON UserBookings.user_id = User.user_id;
 
 -- Query to Rank Properties Based on the Total Number of Bookings
-SELECT *
+SELECT *,
+       ROW_NUMBER() OVER (ORDER BY ranking) AS row_number
 FROM (
     SELECT 
         Property.property_id, 
@@ -29,4 +30,5 @@ FROM (
     GROUP BY 
         Property.property_id, Property.name
 ) AS RankedProperties;
+
 
